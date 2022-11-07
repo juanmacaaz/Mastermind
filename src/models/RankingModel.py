@@ -35,6 +35,13 @@ class RankingModel():
         If the user is already in the ranking, it updates the score
         '''
         ranking = self.get_ranking()
+        for i in range(len(ranking)):
+            if ranking[i][0] == name:
+                if score > ranking[i][1]:
+                    ranking[i][1] = score
+                break
+        else:
+            ranking.append([name, score])
         # Sort the ranking
         ranking.sort(key=lambda x: int(x[1]), reverse=True)
         # Write the ranking to the file
