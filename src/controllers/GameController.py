@@ -1,10 +1,27 @@
 from controllers.Controller import Controller
+from controllers.Tablero import Tablero
 
 class GameController(Controller):
 
+    def __init__(self):
+        self.tablero = Tablero()
+        self.difficulty = -1
+
+        self.color_char_map = {
+            'R': 1,
+            'G': 2,
+            'B': 3,
+            'C': 4,
+            'W': 5,
+            'Y': 6,
+            'M': 7,
+        }
+
+
     def show_difficulty(self, data = {}):
         return {'view': 'DifficultyView', 'data': data}
-
+ 
+ 
     def set_difficulty(self, data):
         
         if data['difficulty'] not in ['1', '2', '3']:
@@ -76,3 +93,37 @@ class GameController(Controller):
         # Default
         return {'view': 'GameView',
                 'data': self.get_data_tablero()}
+
+
+    def parse_input(self, data):
+        if type(data) is not str:
+            return None
+
+        data = list(data.upper())
+        numbers = []
+        for letter in data:
+            if letter not in self.color_char_map:
+                return None
+            numbers.append(self.color_char_map[letter])
+        return numbers if len(numbers) > 0 else None
+
+
+    def get_data_tablero(self):
+        tablero = self.tablero.get_tablero()
+        rows = self.tablero.get_rows()
+        columns = self.tablero.get_columns()
+        results = self.tablero.get_results()
+        colors = self.tablero.get_num_colors()
+        return {
+                'tablero': tablero,
+                'rows': rows,
+                'columns': columns, 
+                'results': results,
+                'colors': colors,
+                }
+
+    def get_n_intentos(self):
+        return self.tablero.get_rows()
+
+    def get_difficulty(self):
+        return self.difficulty

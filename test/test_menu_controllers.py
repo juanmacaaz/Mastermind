@@ -5,6 +5,7 @@ from controllers.GameController import GameController
 from controllers.MenuController import MenuController
 from controllers.RankingController import RankingController
 
+
 def init_menu_controller():
     menu = MenuController()
     menu.set_controllers(
