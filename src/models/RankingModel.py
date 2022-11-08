@@ -1,5 +1,5 @@
-import os
 import csv
+import os
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'ranking.csv').replace('models\\', '')
 
@@ -35,6 +35,7 @@ class RankingModel():
         If the user is already in the ranking, it updates the score
         '''
         ranking = self.get_ranking()
+        # Check if the user is already in the ranking
         for i in range(len(ranking)):
             if ranking[i][0] == name:
                 if score > ranking[i][1]:
@@ -48,8 +49,19 @@ class RankingModel():
         with open(DATA_DIR, 'w', newline='') as file:
             writer = csv.writer(file, delimiter=';')
             writer.writerows(ranking)
+        
+
+    def delete_by_name(self, name):
+        ranking = self.get_ranking()
+        ranking = list(filter(lambda x: x[0] != name, ranking))
+        # Write the ranking to the file
+        with open(DATA_DIR, 'w', newline='') as file:
+            writer = csv.writer(file, delimiter=';')
+            writer.writerows(ranking)
+
 
     def delete_all(self):
         with open(DATA_DIR, 'w', newline='') as file:
             writer = csv.writer(file, delimiter=';')
             writer.writerows([])
+            
