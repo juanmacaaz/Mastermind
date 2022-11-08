@@ -36,4 +36,3 @@ def test_get_ranking():
     assert(type(res) == list)
     assert(res[0][0] == 'Miguel')
     assert(res[0][1] == 10)
-    
