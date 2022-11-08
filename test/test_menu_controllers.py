@@ -21,3 +21,27 @@ def test_show_menu():
 def test_show_exit():
     res = menu.show_exit()
     assert(res['view'] == 'ExitView')
+
+def test_exit():
+    try:
+        menu.exit({})
+    except SystemExit:
+        assert(True)
+
+def test_menu_input():
+    res = menu.select_option({'option': 1})
+    assert(res['view'] == 'DifficultyView')
+
+    res = menu.select_option({'option': 2})
+    assert(res['view'] == 'RankingView')
+
+    res = menu.select_option({'option': 3})
+    assert(res['view'] == 'ExitView')
+
+    res = menu.select_option({'option': 4})
+    assert(res['view'] == 'MenuView')
+    assert(res['data']['error'] == 'Invalid option')
+
+    res = menu.select_option({'option': 'a'})
+    assert(res['view'] == 'MenuView')
+    assert(res['data']['error'] == 'Invalid Type')
