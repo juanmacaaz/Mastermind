@@ -4,6 +4,10 @@ import os
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'ranking.csv').replace('models\\', '')
 
 class RankingModel():
+    '''
+        Singleton implementation of the class RankingModel.
+        Controls the access to the file ranking.csv
+    '''
     __instance = None
 
     @staticmethod
@@ -19,11 +23,15 @@ class RankingModel():
             RankingModel.__instance = self
 
     def get_ranking(self):
+        '''
+            Returns the ranking from the file ordered by score
+        '''
         ranking = []
         with open(DATA_DIR, 'r') as file:
             reader = csv.reader(file, delimiter=';')
             for row in reader:
                 ranking.append(row)
+
         # Sort the ranking
         ranking.sort(key=lambda x: int(x[1]), reverse=True)
         ranking = list(map(lambda x: [x[0], int(x[1])], ranking))
@@ -52,6 +60,9 @@ class RankingModel():
         
 
     def delete_by_name(self, name):
+        '''
+            Deletes the ranking of the player with the name passed as parameter
+        '''
         ranking = self.get_ranking()
         ranking = list(filter(lambda x: x[0] != name, ranking))
         # Write the ranking to the file
@@ -61,6 +72,9 @@ class RankingModel():
 
 
     def delete_all(self):
+        '''
+            Deletes all the ranking
+        '''
         with open(DATA_DIR, 'w', newline='') as file:
             writer = csv.writer(file, delimiter=';')
             writer.writerows([])
