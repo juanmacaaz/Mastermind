@@ -16,4 +16,8 @@ class Pipeline(object):
             controller.set_controllers(self.controllers)
 
     def __call__(self, controller, action, data):
+        '''
+            This method is called when the pipeline is called.
+            It calls the method of the controller selected.
+        '''
         return self.controllers[controller].__getattribute__(action)(data)

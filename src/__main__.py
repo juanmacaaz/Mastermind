@@ -4,18 +4,18 @@ import Pipeline
 
 if __name__ == '__main__':
 
-    # TODO: Hacer bien todas las vistas
-
     views = {}
 
     pipeline = Pipeline.Pipeline()
 
+    # Load the views from the views folder
     for view in os.listdir('views'):
         if view.endswith('.py'):
             view = view.replace('.py', '')
             exec(f'from views import {view}')
             views[view] = eval(f'{view}.{view}()')
 
+    # Show the initial view
     response = pipeline('menu', 'show_menu', {})
 
     while True:
