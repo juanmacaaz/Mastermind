@@ -1,7 +1,7 @@
 ## Autores
 
 Juan Manuel Camara Diaz 1566532  
-Christian Ferre Delgado xxxxxxx
+Christian Ferre Delgado 1565129
 
 ## Pasos previos
 
